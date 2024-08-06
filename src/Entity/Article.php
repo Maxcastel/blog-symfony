@@ -26,15 +26,15 @@ class Article
     #[ORM\Column(length: 255)]
     private ?string $link = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $author = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $lastUpdate = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable:true)]
+    private ?\DateTimeInterface $lastUpdate;
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $creationDate = null;
 
     public function getId(): ?int
     {
@@ -89,18 +89,6 @@ class Article
         return $this;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): static
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
     public function getLastUpdate(): ?\DateTimeInterface
     {
         return $this->lastUpdate;
@@ -121,6 +109,18 @@ class Article
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCreationDate(): ?\DateTimeInterface
+    {
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(\DateTimeInterface $creationDate): static
+    {
+        $this->creationDate = $creationDate;
 
         return $this;
     }
