@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creer article{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Creer un article</h1>
+
+    {{ form_start(form, {'method': 'POST'}) }}
+    
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.content) }}
+
+    <button class="btn btn-primary">
+        Creer
+    </button>
+
+    {{ form_end(form) }}
+</div>
+{% endblock %}
