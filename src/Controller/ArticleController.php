@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\String\Slugger\AsciiSlugger;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ArticleController extends AbstractController
 {
@@ -54,6 +55,7 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/article/{id}/edit', name: 'article_edit')]
+    #[IsGranted('ROLE_ADMIN')]
     public function editArticle(int $id, Request $request, ArticleRepository $articleRepository, EntityManagerInterface $em): Response
     {
         $article = $articleRepository->find($id);
