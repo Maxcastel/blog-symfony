@@ -3,13 +3,13 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center">
+    <div class="d-flex flex-column align-items-center">
 
         {{ form_errors(registrationForm) }}
 
         <div class="w-100" style="max-width: 500px;">
             {{ form_start(registrationForm) }}
-            <h1 class="my-3 font-weight-normal">Inscription</h1>
+                <h1 class="my-3 font-weight-normal">Inscription</h1>
             
                 {{ form_row(registrationForm.first_name, {
                     label: 'Prenom'
@@ -26,6 +26,9 @@
                     S'inscrire
                 </button>
             {{ form_end(registrationForm) }}
+        </div>
+        <div class="mt-3">
+            <p>Déjà un compte ? <a href="{{ path('app_login') }}">Se connecter</a></p>
         </div>
     </div>
 {% endblock %}
