@@ -23,8 +23,8 @@ class Article
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $link = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $link;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable:true)]
     private ?\DateTimeInterface $lastUpdate;
