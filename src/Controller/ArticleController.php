@@ -95,4 +95,26 @@ class ArticleController extends AbstractController
             'articles' => $articleRepository->findAll(),
         ]);
     }
+
+    #[Route('/article/{id}/delete', name: 'article_delete', methods: ['POST', 'DELETE'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function deleteArticle(int $id, Request $request, ArticleRepository $articleRepository, EntityManagerInterface $em): Response
+    {
+        $article = $articleRepository->find($id);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Article not found');
+        }
+
+        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+            $em->remove($article);
+            $em->flush();
+
+            $this->addFlash('success', 'L\'article a été supprimé avec succès.');
+        } else {
+            $this->addFlash('error', 'Token CSRF invalide.');
+        }
+
+        return $this->redirectToRoute('article_show_all_admin');
+    }
 }
