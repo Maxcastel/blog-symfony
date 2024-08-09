@@ -17,47 +17,55 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/home">Accueil</a>
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/home">Accueil</a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-        <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href={{ is_granted("ROLE_ADMIN") ? "/admin/articles" : "/bb" }}>Articles</a>
-                </li>
-                {% if is_granted("ROLE_ADMIN") %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('article_create') }}">Créer un article</a>
-                </li>
-                {% endif %}
-            </ul>
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href={{ is_granted("ROLE_ADMIN") ? "/admin/articles" : "/bb" }}>Articles</a>
+                        </li>
+                        {% if is_granted("ROLE_ADMIN") %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('article_create') }}">Créer un article</a>
+                        </li>
+                        {% endif %}
+                    </ul>
 
-            {% if is_granted("ROLE_ADMIN") %}
-            <ul class="navbar-nav mx-auto">
-                <li class="nav-item">
-                    <a class="nav-link">Espace administration</a>
-                </li>
-            </ul>
-            {% endif %}
+                    {% if is_granted("ROLE_ADMIN") %}
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link">Espace administration</a>
+                        </li>
+                    </ul>
+                    {% endif %}
 
-            <ul class="navbar-nav ms-auto">
-                {% if not app.user %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-</nav>
+                    <ul class="navbar-nav ms-auto">
+                        {% if not app.user %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endfor %}
 
         <div class="container">
             {% block body %}{% endblock %}
