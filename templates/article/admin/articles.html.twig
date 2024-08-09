@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+
+  <h1 class="text-center my-4">Liste des articles</h1>
+
+  <div class="d-flex justify-content-center">
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Titre</th>
+          <th scope="col">Date de création</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for article in articles %}
+          <tr>
+              <th scope="row" class="align-middle">{{ article.id }}</th>
+              <td class="align-middle">{{ article.title }}</td>
+              <td class="align-middle">{{ article.creationDate|date("d/m/Y H:i:s") }}</td>
+              <td class="align-middle">
+                <ul class="d-flex list-unstyled gap-2 mb-0">
+                  <li>
+                    <a href="{{ path('article_edit', { 'id': article.id }) }}" class="btn btn-sm btn-primary" title="Editer">
+                        <i class="fa-solid fa-pen"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <form action="{{ path('article_delete', { 'id': article.id }) }}" method="post">
+                      <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                      <button type="submit" class="btn btn-sm btn-danger" title="Supprimer">
+                          <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </form>
+                  </li>
+                </ul>
+              </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+{% endblock %}
