@@ -83,6 +83,16 @@ class ArticleController extends AbstractController
 
         return $this->render('article/edit.html.twig', [
             'form' => $form->createView(),
+            'article' => $article,
+        ]);
+    }   
+
+    #[Route('/admin/articles', name: 'article_show_all_admin')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function showAllArticlesAdmin(ArticleRepository $articleRepository): Response
+    {
+        return $this->render('article/admin/articles.html.twig', [
+            'articles' => $articleRepository->findAll(),
         ]);
     }
 }
