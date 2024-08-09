@@ -76,7 +76,7 @@ class ArticleController extends AbstractController
             $this->addFlash('success', 'L\'article a été créé avec succès !');
         }
 
-        return $this->render('article/create.html.twig', [
+        return $this->render('article/admin/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -108,7 +108,7 @@ class ArticleController extends AbstractController
             $em->flush();
         }
 
-        return $this->render('article/edit.html.twig', [
+        return $this->render('article/admin/edit.html.twig', [
             'form' => $form->createView(),
             'article' => $article,
         ]);
