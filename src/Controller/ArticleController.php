@@ -72,6 +72,8 @@ class ArticleController extends AbstractController
             $article->setLink($slugger->slug($title)->lower().'-'.$article->getId());
 
             $em->flush();
+
+            $this->addFlash('success', 'L\'article a été créé avec succès !');
         }
 
         return $this->render('article/create.html.twig', [
