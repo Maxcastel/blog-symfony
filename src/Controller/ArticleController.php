@@ -106,6 +106,8 @@ class ArticleController extends AbstractController
 
             $em->persist($article);
             $em->flush();
+
+            $this->addFlash('success', 'L\'article a été modifié avec succès !');
         }
 
         return $this->render('article/admin/edit.html.twig', [
