@@ -11,7 +11,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ article.title }}</h5>
                             <p class="card-text d-flex flex-column gap-2">
-                                <span><i>Publié le {{ article.creationDate | date('d/m/Y à H:i:s') }}</i></span>    
+                                <span class="small"><i>Publié le {{ article.creationDate | date('d/m/Y à H:i:s') }}</i></span>    
                                 <span>{{ article.description }}</span>
                             </p>
                             <a href="{{ path('article_show', { 'slug': article.link }) }}" class="btn btn-light">Lire la suite</a>
