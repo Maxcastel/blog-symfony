@@ -58,9 +58,6 @@ class ArticleController extends AbstractController
             $article->setDescription($form->get('description')->getData());
             $article->setContent($form->get('content')->getData());
 
-            $slugger = new AsciiSlugger();
-
-            $article->setLink($slugger->slug($title));
             $article->setUser($this->getUser());
 
             date_default_timezone_set('Europe/Paris');
@@ -68,6 +65,12 @@ class ArticleController extends AbstractController
             $article->setCreationDate(new DateTime());
 
             $em->persist($article);
+            $em->flush();
+
+            $slugger = new AsciiSlugger();
+
+            $article->setLink($slugger->slug($title)->lower().'-'.$article->getId());
+
             $em->flush();
         }
 
