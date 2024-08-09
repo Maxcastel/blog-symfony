@@ -102,7 +102,7 @@ class ArticleController extends AbstractController
 
             $slugger = new AsciiSlugger();
 
-            $article->setLink($slugger->slug($form->get('title')->getData()));
+            $article->setLink($slugger->slug($form->get('title')->getData())->lower().'-'.$article->getId());
 
             $em->persist($article);
             $em->flush();
