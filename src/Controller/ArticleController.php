@@ -60,7 +60,7 @@ class ArticleController extends AbstractController
 
             $slugger = new AsciiSlugger();
 
-            $article->setLink($slugger->slug($title));
+            $article->setLink($slugger->slug($title)->lower());
             $article->setUser($this->getUser());
 
             date_default_timezone_set('Europe/Paris');
