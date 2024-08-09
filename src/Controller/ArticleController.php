@@ -17,6 +17,28 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ArticleController extends AbstractController
 {
+    #[Route('/articles', name: 'article_show_all')]
+    public function showAllArticles(ArticleRepository $articleRepository): Response
+    {
+        return $this->render('article/articles.html.twig', [
+            'articles' => $articleRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/articles/{slug}', name: 'article_show')]
+    public function showArticle(string $slug, ArticleRepository $articleRepository): Response
+    {
+        $article = $articleRepository->findOneBy(["link" => $slug]);
+
+        if (!$article) {
+            throw $this->createNotFoundException('Article non trouvé');
+        }
+
+        return $this->render('article/show.html.twig', [
+            'article' => $article,
+        ]);
+    }
+
     #[Route('/article/create', name: 'article_create')]
     public function createArticle(Request $request, EntityManagerInterface $em): Response
     {
