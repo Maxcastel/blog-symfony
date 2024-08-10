@@ -40,6 +40,7 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/article/create', name: 'article_create')]
+    #[IsGranted('ROLE_ADMIN')]
     public function createArticle(Request $request, EntityManagerInterface $em): Response
     {
         $article = new Article();
