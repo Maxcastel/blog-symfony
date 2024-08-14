@@ -28,7 +28,7 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/articles/{slug}', name: 'article_show')]
-    public function showArticle(string $slug, ArticleRepository $articleRepository): Response
+    public function showArticle(string $slug, Request $request, ArticleRepository $articleRepository, EntityManagerInterface $em): Response
     {
         $article = $articleRepository->findOneBy(["link" => $slug]);
 
@@ -39,8 +39,25 @@ class ArticleController extends AbstractController
         $comment = new Comment();
         $commentForm = $this->createForm(CommentType::class, $comment);
 
+        $commentForm->handleRequest($request);
+
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment->setContent($commentForm->get('content')->getData());
+            
+            $comment->setUser($this->getUser());
+            $comment->setArticle($article);
+
+            $comment->setCreatedAt(new \DateTime());
+            
+            $comment->setIsValid(false);
+            
+            $em->persist($comment);
+            $em->flush();
+        }
+
         return $this->render('article/show.html.twig', [
             'article' => $article,
+            'comments' => $article->getComments(),
             'commentForm' => $commentForm->createView()
         ]);
     }
