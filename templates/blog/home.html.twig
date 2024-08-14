@@ -1,7 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
-    <h1 class="text-center mt-4">Bienvenue dans mon blog</h1>
+    <section class="d-flex align-items-center text-center" style="height: calc(100vh - 72px); padding-bottom: 72px">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <img src="{{ asset('images/pp.jpg') }}" class="img-fluid rounded-circle " style="max-width: 85px;">
+
+                    <h1 class="display-4 mb-4 mt-2 text-primary">Maxence Castel</h1>
+
+                    <p class="lead mb-4 text-primary">Passionné par le développement web, découvrez mes projets récents, mes dernières actualités et bien plus encore.</p>
+
+                    <a href="{{ path('article_show_all') }}" class="btn btn-primary btn-lg mx-2">Mon blog</a>
+                    <a href="#contact" class="btn btn-primary btn-lg mx-2">Contactez-moi</a>
+
+                    <div class="mt-4 d-flex justify-content-center gap-3">
+                        <a href="https://github.com/maxcastel" class="btn btn-outline-primary btn-sm" target="_blank">
+                            <i class="fab fa-github"></i><span class="ms-1">GitHub</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/maxence-castel-46391a224/" class="btn btn-outline-primary btn-sm" target="_blank">
+                            <i class="fab fa-linkedin"></i><span class="ms-1">LinkedIn</span>
+                        </a>
+                        <a href="{{ asset('CV.pdf') }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                            <i class="fas fa-file-pdf"></i><span class="ms-1">CV</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <h2 class="text-center mb-4">Me contacter</h2>
+                    {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

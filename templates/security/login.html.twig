@@ -3,16 +3,10 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-    <div class="d-flex flex-column align-items-center">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="height: calc(100vh - 72px); padding-bottom: 72px">
         <form action="{{ path('app_login') }}" method="post" class="w-100" style="max-width: 500px;">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
-
-            {% if app.user %}
-                <div class="mb-3">
-                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-                </div>
             {% endif %}
 
             <h1 class="my-3 font-weight-normal">
