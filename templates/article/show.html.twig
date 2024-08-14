@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% set creationDate = article.creationDate %}
+{% set lastUpdate = article.lastUpdate %}
+{% set isSameDay = creationDate|date('d/m/Y') == (lastUpdate ? lastUpdate|date('d/m/Y') : creationDate|date('d/m/Y')) %}
+{% set isToday = creationDate|date('d/m/Y') == "now"|date('d/m/Y') %}
+
+{% block body %}
+    <section style="height: calc(100vh - 72px); padding-bottom: 72px">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-6 offset-md-2">
+                    <h1>{{ article.title }}</h1>
+                    <p class="text-muted"> 
+                        <small class="d-block">
+                            Par {{ article.user.firstName }} {{ article.user.name }}
+                        </small>
+                        <small class="d-block">
+                            Publié {{ isToday ? "aujourd'hui à " ~ article.creationDate | date('H:i:s') : "le " ~ article.creationDate | date('d/m/Y à H:i:s') }}
+                            {% if lastUpdate %}
+                                {% if isSameDay %}
+                                    , modifié à {{ lastUpdate|date('H:i:s') }}
+                                {% else %}
+                                    , modifié le {{ lastUpdate|date('d/m/Y à H:i:s') }}
+                                {% endif %}
+                            {% endif %}
+                        </small>
+                    </p>
+                    <div class="my-4">
+                        <p class="text-muted">{{ article.description }}</p>
+                    </div>
+                    <div class="mt-4">
+                        <p>{{ article.content }}</p>
+                    </div>
+                    <div class="mt-4">
+                        <a href="{{ path('article_show_all') }}" class="btn btn-outline-primary">Retour aux articles</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
