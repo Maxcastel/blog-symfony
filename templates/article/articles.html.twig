@@ -6,6 +6,11 @@
     <div class="container mt-4">
         <div class="row">
             {% for article in articles %}
+
+            {% set creationDate = article.creationDate %}
+            {% set lastUpdate = article.lastUpdate %}
+            {% set isSameDay = creationDate|date('d/m/Y') == (lastUpdate ? lastUpdate|date('d/m/Y') : creationDate|date('d/m/Y')) %}
+
                 <div class="col-md-4 mb-3">
                     <div class="card text-white bg-primary" style="max-width: 20rem;">
                         {% if article.imageUrl %}
@@ -13,8 +18,17 @@
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ article.title }}</h5>
-                            <p class="card-text d-flex flex-column gap-2">
-                                <span class="small"><i>Publié le {{ article.creationDate | date('d/m/Y à H:i:s') }}</i></span>    
+                            <p class="card-text d-flex flex-column">
+                                <span class="small"><i>Publié le {{ article.creationDate | date('d/m/Y à H:i:s') }}</i></span>
+                                {% if lastUpdate %}
+                                    {% if isSameDay %}
+                                        <span class="small"><i>Modifié à {{ lastUpdate|date('H:i:s') }}</i></span>
+                                    {% else %}
+                                        <span class="small"><i>Modifié le {{ lastUpdate|date('d/m/Y à H:i:s') }}</i></span>
+                                    {% endif %}
+                                {% endif %}
+                            </p>
+                            <p class="card-text mb-4">
                                 <span>{{ article.description }}</span>
                             </p>
                             <a href="{{ path('article_show', { 'slug': article.link }) }}" class="btn btn-light">Lire la suite</a>
