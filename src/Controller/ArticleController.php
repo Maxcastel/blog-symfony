@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Entity\Comment;
+use App\Form\CommentType;
 
 class ArticleController extends AbstractController
 {
@@ -34,8 +36,12 @@ class ArticleController extends AbstractController
             throw $this->createNotFoundException('Article non trouvé');
         }
 
+        $comment = new Comment();
+        $commentForm = $this->createForm(CommentType::class, $comment);
+
         return $this->render('article/show.html.twig', [
             'article' => $article,
+            'commentForm' => $commentForm->createView()
         ]);
     }
 
