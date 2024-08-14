@@ -82,5 +82,45 @@
                 });
             </script>
         {% endblock %} #}
+
+        <footer class="bg-primary text-white py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 d-flex flex-column justify-content-center align-items-start">
+                        <h5>Contact</h5>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="http://localhost:8000/#contact" class="text-white text-decoration-none">Contactez-moi</a>
+                            </li>
+                            <li>
+                                <a href="{{ asset('CV.pdf') }}" class="text-white text-decoration-none" target="_blank">Voir mon CV</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-md-6 d-flex flex-column align-items-end">
+                        <h5>Suivez-moi</h5>
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                                <a href="https://github.com/maxcastel" class="text-white text-decoration-none" target="_blank">
+                                    <i class="fab fa-github fa-2x"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.linkedin.com/in/maxence-castel-46391a224/" class="text-white text-decoration-none" target="_blank">
+                                    <i class="fab fa-linkedin fa-2x"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-3">
+                        <small>&copy; {{ "now"|date("Y") }} Maxence Castel. Tous droits réservés.</small>
+                        <br>
+                        <small class="text-muted"><a href="{{ path('article_show_all_admin') }}" class="text-white text-decoration-none">Administration du blog</a></small>
+                    </div>
+                </div>
+            </footer>
     </body>
 </html>
