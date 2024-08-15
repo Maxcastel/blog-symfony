@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commentaires{% endblock %}
+
+{% block body %}
+    <section style="min-height: calc(100vh - 72px); padding-bottom: 72px;">
+        <div class="container mt-4">
+            <h1>Gestion des commentaires</h1>
+            
+            {% if comments is empty %}
+                <p>Aucun commentaire en attente de validation.</p>
+            {% else %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Article</th>
+                            <th>Auteur</th>
+                            <th>Contenu</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for comment in comments %}
+                            <tr>
+                                <td>{{ comment.id }}</td>
+                                <td>{{ comment.article.title }}</td>
+                                <td>{{ comment.user.firstName }} {{ comment.user.name }}</td>
+                                <td>{{ comment.content }}</td>
+                                <td>{{ comment.createdAt | date('d/m/Y à H:i:s') }}</td>
+                                <td>
+                                    <form action="{{ path('admin_comment_validate', {'id': comment.id}) }}" method="post" style="display: inline;">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('validate' ~ comment.id) }}">
+                                        <button type="submit" class="btn btn-success btn-sm">Valider</button>
+                                    </form>
+                                    <form action="{{ path('admin_comment_delete', {'id': comment.id}) }}" method="post" style="display: inline;">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}
