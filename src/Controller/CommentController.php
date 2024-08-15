@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
 
 class CommentController extends AbstractController
 {
@@ -31,12 +32,16 @@ class CommentController extends AbstractController
 
     #[Route('/admin/comments/validate/{id}', name: 'admin_comment_validate')]
     #[IsGranted('ROLE_ADMIN')]
-    public function validateComment($id): Response
+    public function validateComment($id, Request $request): Response
     {
         $comment = $this->commentRepository->find($id);
 
         if (!$comment) {
             throw $this->createNotFoundException('Commentaire non trouvé.');
+        }
+
+        if (!$this->isCsrfTokenValid('validate'.$id, $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Jeton CSRF invalide.');
         }
 
         $comment->setIsValid(true);
@@ -47,12 +52,16 @@ class CommentController extends AbstractController
     
     #[Route('/admin/comments/delete/{id}', name: 'admin_comment_delete')]
     #[IsGranted('ROLE_ADMIN')]
-    public function deleteComment($id): Response
+    public function deleteComment($id, Request $request): Response
     {
         $comment = $this->commentRepository->find($id);
 
         if (!$comment) {
             throw $this->createNotFoundException('Commentaire non trouvé.');
+        }
+
+        if (!$this->isCsrfTokenValid('delete'.$id, $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Jeton CSRF invalide.');
         }
 
         $this->em->remove($comment);
