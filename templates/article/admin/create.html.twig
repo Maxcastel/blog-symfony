@@ -12,12 +12,8 @@
         {{ form_row(form.title) }}
         {{ form_row(form.description) }}
         {{ form_row(form.imageUrl) }}
-        {# {{ form_row(form.content) }} #}
         <div class="form-group mb-3">
-            <label for="editor">{{ form_label(form.content) }}</label>
-            <div id="editor">
-                {{ form_widget(form.content) }}
-            </div>
+            <div id="editor"></div>
         </div>
 
         <button class="btn btn-primary">
@@ -25,23 +21,15 @@
         </button>
 
         {{ form_end(form) }}
-        
-        <button id="deleteButton">aaa</button>
-
-        {% block javascripts %}
-            {{ parent() }}
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    // Initialize Quill editor
-                    const quill = new Quill('#editor', {
-                        theme: 'snow'
-                    });
-                    const text = quill.getText(0, 10);
-                    console.log(text);
-                });
-            </script>
-        {% endblock %}
     </section>
-    
+
+    {% block javascripts %}
+        <script>
+            const quill = new Quill('#editor', {
+                theme: 'snow'
+            });
+        </script>
+    {% endblock %}
+
 {% endblock %}
 
