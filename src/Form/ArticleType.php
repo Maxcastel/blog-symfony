@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ArticleType extends AbstractType
 {
@@ -16,7 +17,10 @@ class ArticleType extends AbstractType
             ->add('title', null, ['attr' => ['placeholder' => 'Titre de l\'article'], 'label' => 'Titre' ])
             ->add('description', null, ['attr' => ['placeholder' => 'Description de l\'article'] ])
             ->add('imageUrl', TextType::class, ['attr' => ['placeholder' => 'Url de l\'image'], 'label' => 'Url de l\'image' ])
-            ->add('content', null, ['attr' => ['placeholder' => 'Contenu de l\'article'], 'label' => 'Contenu'  ])
+            // ->add('content', TextareaType::class, [
+            //     'attr' => ['id' => 'editor', 'placeholder' => 'Contenu de l\'article'],
+            //     'label' => 'Contenu'
+            // ]);
         ;
     }
 
