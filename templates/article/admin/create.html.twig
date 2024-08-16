@@ -21,12 +21,19 @@
         </button>
 
         {{ form_end(form) }}
+        
+        <button id="save">save</button>
     </section>
 
     {% block javascripts %}
         <script>
             const quill = new Quill('#editor', {
                 theme: 'snow'
+            });
+
+            document.getElementById('save').addEventListener('click', () => {
+                const text = quill.getSemanticHTML();
+                console.log(text);
             });
         </script>
     {% endblock %}
