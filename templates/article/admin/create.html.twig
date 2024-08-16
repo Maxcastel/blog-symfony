@@ -23,19 +23,23 @@
         </button>
 
         {{ form_end(form) }}
-        
-        <button id="save">save</button>
     </section>
 
     {% block javascripts %}
         <script>
-            const quill = new Quill('#editor', {
-                theme: 'snow'
-            });
+            const toolbarOptions = [
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }], 
+                ['bold', 'italic', 'underline', 'strike'],
+                ['link', 'image'],
 
-            document.getElementById('save').addEventListener('click', () => {
-                const text = quill.getSemanticHTML();
-                console.log(text);
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ];
+
+            const quill = new Quill('#editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: toolbarOptions
+                }
             });
         </script>
     {% endblock %}
