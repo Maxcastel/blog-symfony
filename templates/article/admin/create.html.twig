@@ -41,6 +41,12 @@
                     toolbar: toolbarOptions
                 }
             });
+
+            const form = document.querySelector('form');
+            const content = document.getElementsByClassName('content')[0];
+            form.addEventListener('submit', () => {
+                content.value = quill.root.innerHTML;
+            });
         </script>
     {% endblock %}
 
