@@ -23,6 +23,10 @@ class ContactType extends AbstractType
                 'label' => 'Email',
                 'attr' => ['placeholder' => 'Votre email']
             ])
+            ->add('subject', TextType::class, [
+                'label' => 'Sujet',
+                'attr' => ['placeholder' => 'Sujet de l\'email']
+            ])
             ->add('message', TextareaType::class, [
                 'label' => 'Message',
                 'attr' => ['placeholder' => 'Votre message', 'rows' => 6]
