@@ -7,11 +7,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ContactType;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class BlogController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function home(Request $request): Response
+    public function home(Request $request, MailerInterface $mailer): Response
     {
         $form = $this->createForm(ContactType::class);
 
@@ -19,6 +21,14 @@ class BlogController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
+
+            $email = (new Email())
+                ->from($data["email"])
+                ->to("maxence.castel59@gmail.com")
+                ->subject($data["subject"])
+                ->text($data["message"]);
+
+            $mailer->send($email);
 
             $this->addFlash('success', 'Email envoyé avec succès !');
         }
