@@ -42,6 +42,25 @@
                 }
             });
 
+            quill.getModule('toolbar').addHandler('image', () => {
+                const url = prompt('Insérez l\'URL de l\'image:');
+                if (url) {
+                    if (isValidImageUrl(url)) {
+                        const range = quill.getSelection();
+                        quill.insertEmbed(range.index, 'image', url);
+                    } else {
+                        alert('L\'URL spécifiée n\'est pas une image valide.');
+                    }
+                }
+            });
+
+            function isValidImageUrl(url) {   
+                const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp'];     
+                const cleanUrl = url.split('?')[0];
+
+                return imageExtensions.some(ext => cleanUrl.toLowerCase().endsWith(ext));
+            }
+
             const form = document.querySelector('form');
             const content = document.getElementsByClassName('content')[0];
             form.addEventListener('submit', () => {
