@@ -7,17 +7,68 @@
     <section class="d-flex flex-column justify-content-center" style="min-height: calc(100vh - 72px); padding-bottom: 72px">
         <h1 class="my-4">Modifier l'article "{{ article.title }}"</h1>
 
-    {{ form_start(form, {'method': 'POST'}) }}
-    
-    {{ form_row(form.title) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.imageUrl) }}
-    {{ form_row(form.content) }}
+        {{ form_start(form, {'method': 'POST'}) }}
+        
+        {{ form_row(form.title) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.imageUrl) }}
+        <div class="form-group mb-3">
+            {{ form_label(form.content) }}
+            <div id="editor">{{ article.content|raw }}</div>
+        </div>
 
-    <button class="btn btn-primary">
-        Modifier
-    </button>
+        <button class="btn btn-primary">
+            Modifier
+        </button>
 
-    {{ form_end(form) }}
-</section>
+        {{ form_end(form) }}
+    </section>
+
+    {% block javascripts %}
+        <script>
+            const toolbarOptions = [
+                [{ 'header': [1, 2, 3, 4, 5, 6, false] }], 
+                ['bold', 'italic', 'underline', 'strike'],
+                ['link', 'image'],
+
+                [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ];
+
+            const quill = new Quill('#editor', {
+                theme: 'snow',
+                modules: {
+                    toolbar: toolbarOptions
+                }
+            });
+
+            quill.getModule('toolbar').addHandler('image', async () => {
+                const url = prompt('Insérez l\'URL de l\'image:');
+                if (url) {
+                    const isValid = await isValidImageUrl(url);
+                    if (isValid) {
+                        const range = quill.getSelection();
+                        quill.insertEmbed(range.index, 'image', url);
+                    } else {
+                        alert('L\'URL spécifiée n\'est pas une image valide.');
+                    }
+                }
+            });
+
+            function isValidImageUrl(url) {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = () => resolve(true);
+                    img.onerror = () => resolve(false);
+                    img.src = url;
+                });
+            }
+
+            const form = document.querySelector('form');
+            const content = document.getElementsByClassName('content')[0];
+            form.addEventListener('submit', () => {
+                content.value = quill.root.innerHTML;
+            });
+        </script>
+    {% endblock %}
+
 {% endblock %}
