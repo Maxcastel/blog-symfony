@@ -42,17 +42,24 @@ class ArticleController extends AbstractController
         $commentForm->handleRequest($request);
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-            $comment->setContent($commentForm->get('content')->getData());
-            
-            $comment->setUser($this->getUser());
-            $comment->setArticle($article);
+            if ($this->getUser()){
+                $comment->setContent($commentForm->get('content')->getData());
+                
+                $comment->setUser($this->getUser());
+                $comment->setArticle($article);
 
-            $comment->setCreatedAt(new \DateTime());
-            
-            $comment->setIsValid(false);
-            
-            $em->persist($comment);
-            $em->flush();
+                $comment->setCreatedAt(new \DateTime());
+                
+                $comment->setIsValid(false);
+                
+                $em->persist($comment);
+                $em->flush();
+
+                $this->addFlash('success', 'Votre commentaire a été ajouté avec succès ! Il est en attente de validation.');
+            }
+            else {
+                $this->addFlash('danger', 'Vous devez être connecté pour pouvoir ajouter un commentaire.');
+            }
         }
 
         return $this->render('article/show.html.twig', [
