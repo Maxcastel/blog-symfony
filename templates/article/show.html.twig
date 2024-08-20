@@ -46,15 +46,13 @@
                 {% else %}
                     <ul class="list-unstyled">
                         {% for comment in comments %}
-                            {% if comment.isValid %}
-                                <li class="my-4">
-                                    <h5 class="mt-0 mb-1">{{ comment.user.firstName }} {{ comment.user.name }}</h5>
-                                    <small class="text-muted">
-                                        Posté le {{ comment.createdAt | date('d/m/Y à H:i:s') }}
-                                    </small>
-                                    <p class="mt-2">{{ comment.content }}</p>   
-                                </li>
-                            {% endif %}
+                            <li class="my-4">
+                                <h5 class="mt-0 mb-1">{{ comment.user.firstName }} {{ comment.user.name }}</h5>
+                                <small class="text-muted">
+                                    Posté le {{ comment.createdAt | date('d/m/Y à H:i:s') }}
+                                </small>
+                                <p class="mt-2">{{ comment.content }}</p>   
+                            </li>
                         {% endfor %}
                     </ul>
                 {% endif %}
