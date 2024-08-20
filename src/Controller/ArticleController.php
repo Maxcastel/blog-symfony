@@ -68,7 +68,7 @@ class ArticleController extends AbstractController
     {
         $article = new Article();
 
-        $form = $this->createForm(ArticleType::class, $article);
+        $form = $this->createForm(ArticleType::class, $article, ['isEdit' => false]);
         
         $form->handleRequest($request);
 
@@ -115,7 +115,7 @@ class ArticleController extends AbstractController
             throw $this->createNotFoundException('Article not found');
         }
 
-        $form = $this->createForm(ArticleType::class, $article);
+        $form = $this->createForm(ArticleType::class, $article, ['isEdit' => true]);
 
         $form->handleRequest($request);
 
