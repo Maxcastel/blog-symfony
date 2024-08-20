@@ -87,6 +87,8 @@ class ArticleController extends AbstractController
             date_default_timezone_set('Europe/Paris');
             
             $article->setCreationDate(new DateTime());
+            
+            $article->setImageUrl($form->get('imageUrl')->getData());
 
             $em->persist($article);
             $em->flush();
