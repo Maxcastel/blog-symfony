@@ -30,14 +30,16 @@
                                 <td>{{ comment.content }}</td>
                                 <td>{{ comment.createdAt | date('d/m/Y à H:i:s') }}</td>
                                 <td>
-                                    <form action="{{ path('admin_comment_validate', {'id': comment.id}) }}" method="post" style="display: inline;">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('validate' ~ comment.id) }}">
-                                        <button type="submit" class="btn btn-success btn-sm">Valider</button>
-                                    </form>
-                                    <form action="{{ path('admin_comment_delete', {'id': comment.id}) }}" method="post" style="display: inline;">
-                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
-                                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
-                                    </form>
+                                    <div class="d-flex flex-column flex-md-row">
+                                        <form action="{{ path('admin_comment_validate', {'id': comment.id}) }}" method="post" style="display: inline;">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('validate' ~ comment.id) }}">
+                                            <button type="submit" class="btn btn-success btn-sm mb-2 mb-md-0 me-md-2">Valider</button>
+                                        </form>
+                                        <form action="{{ path('admin_comment_delete', {'id': comment.id}) }}" method="post" style="display: inline;">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         {% endfor %}
