@@ -171,6 +171,12 @@ class ArticleController extends AbstractController
         }
 
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+            $comments = $article->getComments();
+
+            foreach ($comments as $comment) {
+                $em->remove($comment);
+            }
+            
             $em->remove($article);
             $em->flush();
 
