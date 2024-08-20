@@ -37,7 +37,7 @@ class ArticleType extends AbstractType
         if ($options['isEdit']) {
             $builder
                 ->add('user', ChoiceType::class, [
-                    'choices' => $this->userRepository->findByRole('ROLE_ADMIN'),
+                    'choices' => $this->userRepository->findByRole('ROLE_ADMIN', true),
                     'choice_label' => function (User $user) {
                         return $user->getFirstName() . ' ' . $user->getName();
                     },
