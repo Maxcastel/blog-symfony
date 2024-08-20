@@ -31,7 +31,7 @@ class ArticleController extends AbstractController
     public function showArticle(string $slug, Request $request, ArticleRepository $articleRepository, EntityManagerInterface $em): Response
     {
         $article = $articleRepository->findOneBy(["link" => $slug]);
-
+    
         if (!$article) {
             throw $this->createNotFoundException('Article non trouvé');
         }
@@ -64,7 +64,9 @@ class ArticleController extends AbstractController
 
         return $this->render('article/show.html.twig', [
             'article' => $article,
-            'comments' => $article->getComments(),
+            'comments' => array_filter($article->getComments()->toArray(), function ($comment) {
+                return $comment->isIsValid();
+            }),
             'commentForm' => $commentForm->createView()
         ]);
     }
