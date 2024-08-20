@@ -23,7 +23,7 @@ class ArticleController extends AbstractController
     public function showAllArticles(ArticleRepository $articleRepository): Response
     {
         return $this->render('article/articles.html.twig', [
-            'articles' => $articleRepository->findAll(),
+            'articles' => $articleRepository->findBy([],['creationDate' => 'DESC']),
         ]);
     }
 
