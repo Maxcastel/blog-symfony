@@ -15,6 +15,8 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 
 ## Installation
 
+Le blog est accessible à l'url suivante : https://blog-symfony.mcastel.fr/
+
 Suivez ces étapes pour installer et configurer le projet sur votre machine locale :
 
 1. **Clonez le repository :**
@@ -91,4 +93,4 @@ Suivez ces étapes pour installer et configurer le projet sur votre machine loca
     symfony server:start
     ```
 
-    Accédez à l'application via `http://localhost:8000`
+    Accédez à l'application via http://localhost:8000
