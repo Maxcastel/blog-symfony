@@ -87,7 +87,7 @@ Suivez ces étapes pour installer et configurer le projet sur votre machine loca
    - un fichier **ArticleFixtures** contenant les articles
    - un fichier **CommentFixtures** contenant les commentaires des articles
 
-7. **Démarrez le serveur Symfony :**
+6. **Démarrez le serveur Symfony :**
 
     ```bash
     symfony server:start
