@@ -87,7 +87,22 @@ Suivez ces étapes pour installer et configurer le projet sur votre machine loca
    - un fichier **ArticleFixtures** contenant les articles
    - un fichier **CommentFixtures** contenant les commentaires des articles
 
-6. **Démarrez le serveur Symfony :**
+6. **Configurez la connexion au serveur SMTP pour l'envoi  d'emails :**
+
+   Dans le fichier `.env`, ajoutez la variable d'environnement `MAILER_DSN` pour configurer la connexion à votre serveur SMTP :
+  
+     ```
+     MAILER_DSN=smtp://user:pass@smtp.example.com:port
+     ```
+     
+     Assurez-vous de remplacer les valeurs par celles correspondant à votre configuration :
+
+     `user` par l'utilisateur de votre serveur SMTP  
+     `pass` par le mot de passe de votre serveur SMTP  
+     `smtp.example.com` par l'hôte de votre serveur SMTP  
+     `port` par le port utilisé par votre serveur SMTP  
+
+7. **Démarrez le serveur Symfony :**
 
     ```bash
     symfony server:start
