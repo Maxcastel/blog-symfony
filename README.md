@@ -8,7 +8,7 @@ Bienvenue dans mon blog !
 
 Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur votre machine :
 
-- [PHP 8.0+](https://www.php.net/)
+- [PHP >= 8.0.2](https://www.php.net/)
 - [Composer](https://getcomposer.org/)
 - [Symfony CLI](https://symfony.com/download)
 - [Git](https://git-scm.com/)
