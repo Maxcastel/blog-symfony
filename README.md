@@ -56,19 +56,29 @@ Suivez ces étapes pour installer et configurer le projet sur votre machine loca
        
 4. **Creez les tables de la base de données**
 
-   - Creez le fichier de migration :
-     
-     ```bash
-     php bin/console make:migration
-     ```
-     
-   - Executez la migration pour créer les tables :
-     
-     ```bash
-     php bin/console doctrine:migration:migrate
-     ```
+   Creez les tables avec des fichiers de migration (conseillé) :
 
-5. **Remplir la base de données :**
+      - Creez le fichier de migration :
+        
+        ```bash
+        php bin/console make:migration
+        ```
+        
+      - Executez la migration pour créer les tables :
+        
+        ```bash
+        php bin/console doctrine:migration:migrate
+        ```
+
+     ou
+
+     Creez les tables directement :
+   
+      ```
+      php bin/console doctrine:schema:update --force
+      ```
+
+6. **Remplir la base de données :**
 
     Pour remplir la base de données, il faut charger les fixtures.
 
@@ -87,7 +97,7 @@ Suivez ces étapes pour installer et configurer le projet sur votre machine loca
    - un fichier **ArticleFixtures** contenant les articles
    - un fichier **CommentFixtures** contenant les commentaires des articles
 
-6. **Configurez la connexion au serveur SMTP pour l'envoi  d'emails :**
+7. **Configurez la connexion au serveur SMTP pour l'envoi  d'emails :**
 
    Dans le fichier `.env`, ajoutez la variable d'environnement `MAILER_DSN` pour configurer la connexion à votre serveur SMTP :
   
@@ -102,7 +112,7 @@ Suivez ces étapes pour installer et configurer le projet sur votre machine loca
      `smtp.example.com` par l'hôte de votre serveur SMTP  
      `port` par le port utilisé par votre serveur SMTP  
 
-7. **Démarrez le serveur Symfony :**
+8. **Démarrez le serveur Symfony :**
 
     ```bash
     symfony server:start
