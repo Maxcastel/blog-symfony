@@ -91,7 +91,7 @@ class ArticleController extends AbstractController
             $article->setDescription($form->get('description')->getData());
             $article->setContent($form->get('content')->getData());
 
-            $article->setUser($this->getUser());
+            $article->setUser($this->getUser()); //test
 
             date_default_timezone_set('Europe/Paris');
             
